@@ -1,17 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <button @click="increment">
+    {{ state.count }}
+  </button>
+
+  <span>Ad: {{ state.name }}</span>
+  <div v-for="item in state.arr" :key="item">
+    {{ item }}
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { reactive } from 'vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  const state = reactive({ count: 0, arr: ['foo', 'bar'] })
+
+  function increment() {
+    state.count++;
+    state.arr.push('baz')
   }
-}
+
 </script>
 
 <style>
