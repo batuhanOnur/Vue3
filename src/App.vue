@@ -19,10 +19,14 @@
   <div ref="input">
 
   </div>
+
+
+  <Child ref="childRef" :title="title"/>
 </template>
 
 <script setup>
 import { reactive, nextTick, ref, computed, onMounted, onUpdated, watch } from 'vue';
+import Child from './components/Child.vue'
 
   // It only works for object types, It cannot hold primitive types such as string, number or boolean.
   const state = reactive({ count: 0, arr: ['foo', 'bar'] })
@@ -30,10 +34,15 @@ import { reactive, nextTick, ref, computed, onMounted, onUpdated, watch } from '
   const refNumber = ref(2); 
   const itemRefs = ref([])
 
+  //component ref
+  const childRef = ref(null);
+
   // watchers
   const x = ref(0)
   const input = ref(null)
 
+  // props
+  const title="batuan";
 
   function increment() {
     state.count++;
@@ -77,6 +86,8 @@ import { reactive, nextTick, ref, computed, onMounted, onUpdated, watch } from '
     console.log('on mounted ref', refNumber.value);
     console.log('ref', input)
     console.log(itemRefs.value)
+    console.log('componentRef', childRef.value.a) // child component'den dataya erişme
+    childRef.value.log() // child function çağırma
   })
 
   onUpdated(()=>{
